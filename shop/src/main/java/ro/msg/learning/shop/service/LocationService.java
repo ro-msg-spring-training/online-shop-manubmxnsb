@@ -1,5 +1,6 @@
 package ro.msg.learning.shop.service;
 
+import org.springframework.stereotype.Service;
 import ro.msg.learning.shop.repository.exception.LocationNotFoundException;
 import ro.msg.learning.shop.model.Location;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +8,7 @@ import ro.msg.learning.shop.repository.LocationRepository;
 
 import java.util.List;
 
+@Service
 public class LocationService {
     private final LocationRepository locationRepository;
 
@@ -14,18 +16,17 @@ public class LocationService {
         this.locationRepository = locationRepository;
     }
 
-    @GetMapping("/locations")
-    List<Location> all() {
+
+    public List<Location> getAllLocations() {
         return locationRepository.findAll();
     }
 
-    @GetMapping("/locations/{id}")
-    Location one(@PathVariable int id) {
+
+    Location getLocationById(@PathVariable int id) {
         return locationRepository.findById(id).orElseThrow(() -> new LocationNotFoundException(id));
     }
 
-    @PostMapping("/locations")
-    Location location(@RequestBody Location location) {
+    Location addLocation(@RequestBody Location location) {
         return locationRepository.save(location);
     }
 }

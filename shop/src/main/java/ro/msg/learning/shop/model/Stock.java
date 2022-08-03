@@ -3,7 +3,9 @@ package ro.msg.learning.shop.model;
 import lombok.*;
 import javax.persistence.*;
 
+@Builder
 @Entity
+@Table(name="Stock")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -12,12 +14,13 @@ import javax.persistence.*;
 public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Integer stockId;
     @ManyToOne
-    @JoinColumn(name = "ProductID")
-    private Product productId;
+    @JoinColumn(name = "PRODUCT_ID")
+    private Product product;
     @ManyToOne
-    @JoinColumn(name = "LocationID")
-    private Location locationId;
+    @JoinColumn(name = "LOCATION_ID")
+    private Location location;
     private Integer quantity;
 }

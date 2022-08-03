@@ -2,9 +2,15 @@ package ro.msg.learning.shop.model;
 
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
+@Builder
 @Entity
+@Table(name="product")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -13,20 +19,37 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Integer productId;
+
+    @NotNull(message = "Product Category's Id is mandatory and must be a number")
     @ManyToOne
-    @JoinColumn(name = "ProductCategoryID")
+    @JoinColumn(name = "PRODUCT_CATEGORY_ID")
     private ProductCategory productCategory;
+
+    @NotNull(message = "Supplier's Id is mandatory and must be a number")
     @ManyToOne
-    @JoinColumn(name = "SupplierID")
+    @JoinColumn(name = "SUPPLIER_ID")
     private Supplier supplierId;
+
+    @NotBlank(message = "Name is mandatory")
     private String name;
+
+    @NotBlank(message = "Description is mandatory")
     private String description;
+
+    @NotNull(message = "Price is mandatory and must be a number")
     private Float price;
+
+    @NotNull(message = "Weight is mandatory and must be a number")
     private Double weight;
+
+    @NotBlank(message = "Image url is mandatory")
     private String image_url;
-    @OneToMany(mappedBy = "stockId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "stockId")
     private List<Stock> Stock;
-    @OneToMany(mappedBy = "orderId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "orderId")
     private List<OrderDetail> OrderDetail;
 }

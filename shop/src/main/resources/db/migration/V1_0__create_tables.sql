@@ -1,85 +1,85 @@
-CREATE TABLE IF NOT EXISTS Supplier(
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    NAME VARCHAR(255));
+create table if not exists supplier(
+    id int primary key auto_increment,
+    name varchar(255));
 
-CREATE TABLE IF NOT EXISTS ProductCategory(
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    NAME VARCHAR(255),
-    DESCRIPTION VARCHAR(255));
+create table if not exists product_category(
+    id int primary key auto_increment,
+    name varchar(255),
+    description varchar(255));
 
-CREATE TABLE IF NOT EXISTS Product(
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    NAME VARCHAR(255),
-    DESCRIPTION VARCHAR(255),
-    PRICE DOUBLE,
-    WEIGHT DOUBLE,
-    IMAGE_URL VARCHAR(255),
-    PRODUCT_CATEGORY_ID INT,
-    CONSTRAINT FK_PRODUCT_CATEGORY FOREIGN KEY (PRODUCT_CATEGORY_ID) REFERENCES PRODUCTCATEGORY(ID),
-    SUPPLIER_ID INT,
-    CONSTRAINT FK_SUPPLIER FOREIGN KEY (SUPPLIER_ID) REFERENCES SUPPLIER(ID));
+create table if not exists product(
+    id int primary key auto_increment,
+    name varchar(255),
+    description varchar(255),
+    price double,
+    weight double,
+    image_url varchar(255),
+    product_category_id int,
+    constraint fk_product_category foreign key (product_category_id) references product_category(id),
+    supplier_id int,
+    constraint fk_supplier foreign key (supplier_id) references supplier(id));
 
-CREATE TABLE IF NOT EXISTS Customer(
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    FIRSTNAME VARCHAR(255),
-    LASTNAME VARCHAR(255),
-    USERNAME VARCHAR(255),
-    PASSWORD VARCHAR(255),
-    EMAIL_ADDRESS VARCHAR(255)
+create table if not exists customer(
+    id int primary key auto_increment,
+    firstname varchar(255),
+    lastname varchar(255),
+    username varchar(255),
+    password varchar(255),
+    email_address varchar(255)
     );
 
-CREATE TABLE IF NOT EXISTS Location(
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    NAME VARCHAR(255),
-    ADDRESS_COUNTRY VARCHAR(255),
-    ADDRESS_CITY VARCHAR(255),
-    ADDRESS_COUNTY VARCHAR(255),
-    ADDRESS_STREET VARCHAR(255)
+create table if not exists location(
+    id int primary key auto_increment,
+    name varchar(255),
+    address_country varchar(255),
+    address_city varchar(255),
+    address_county varchar(255),
+    address_street varchar(255)
     );
 
-CREATE TABLE IF NOT EXISTS Revenue(
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    LOCATION_ID INT,
-    CONSTRAINT FK_LOCATION FOREIGN KEY (LOCATION_ID) REFERENCES LOCATION(ID),
-    DATE_D DATE,
-    SUM DOUBLE
+create table if not exists revenue(
+    id int primary key auto_increment,
+    location_id int,
+    constraint fk_location foreign key (location_id) references location(id),
+    date_d date,
+    sum double
     );
 
-CREATE TABLE IF NOT EXISTS PlacedOrder(
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    SHIPPED_FROM_ID INT,
-    CONSTRAINT FK_SHIPPED_FROM FOREIGN KEY (SHIPPED_FROM_ID) REFERENCES LOCATION(ID),
-    CUSTOMER_ID INT,
-    CONSTRAINT FK_CUSTOMER FOREIGN KEY (CUSTOMER_ID) REFERENCES CUSTOMER(ID),
-    CREATED_AT DATETIME,
-    ADDRESS_COUNTRY VARCHAR(255),
-    ADDRESS_CITY VARCHAR(255),
-    ADDRESS_COUNTY VARCHAR(255),
-    ADDRESS_STREET VARCHAR(255));
+create table if not exists placed_order(
+    id int primary key auto_increment,
+    shipped_from_id int,
+    constraint fk_shipped_from foreign key (shipped_from_id) references location(id),
+    customer_id int,
+    constraint fk_customer foreign key (customer_id) references customer(id),
+    created_at datetime,
+    address_country varchar(255),
+    address_city varchar(255),
+    address_county varchar(255),
+    address_street varchar(255));
 
-CREATE TABLE IF NOT EXISTS Stock(
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    PRODUCT_ID INT,
-    CONSTRAINT FK_PRODUCT FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT(ID),
-    LOCATION_ID INT,
-    CONSTRAINT FK_LOCATION_STOCK FOREIGN KEY (LOCATION_ID) REFERENCES LOCATION(ID),
-    QUANTITY INT,
-    CONSTRAINT UNIQUE_STOCK UNIQUE (PRODUCT_ID,LOCATION_ID)
+create table if not exists stock(
+    id int primary key auto_increment,
+    product_id int,
+    constraint fk_product foreign key (product_id) references product(id),
+    location_id int,
+    constraint fk_location_stock foreign key (location_id) references location(id),
+    quantity int,
+    constraint unique_stock unique (product_id,location_id)
     );
 
-CREATE TABLE IF NOT EXISTS OrderDetail(
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    PRODUCT_ID INT,
-    CONSTRAINT FK_PRODUCT_ORDER_DETAIL FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT(ID),
-    ORDER_ID INT,
-    CONSTRAINT FK_ORDER FOREIGN KEY (ORDER_ID) REFERENCES PLACEDORDER(ID),
-    QUANTITY INT,
-    CONSTRAINT UNIQUE_ORDER_DETAIL UNIQUE (PRODUCT_ID,ORDER_ID)
+create table if not exists order_detail(
+    id int primary key auto_increment,
+    product_id int,
+    constraint fk_product_order_detail foreign key (product_id) references product(id),
+    order_id int,
+    constraint fk_order foreign key (order_id) references placed_order(id),
+    quantity int,
+    constraint unique_order_detail unique (product_id,order_id)
     );
 
-INSERT INTO PRODUCTCATEGORY(NAME, DESCRIPTION) VALUES ( 'laptop', 'Electronics Category - Laptops' );
+insert into product_category(name, description) values ( 'laptop', 'electronics category - laptops' );
 
-INSERT INTO SUPPLIER(NAME) VALUES ( 'DELL' );
+insert into supplier(name) values ( 'dell' );
 
-INSERT INTO PRODUCT(NAME, DESCRIPTION, PRICE, WEIGHT, IMAGE_URL, PRODUCT_CATEGORY_ID, SUPPLIER_ID)
-VALUES ( 'My first product', 'Amazing', 1000, 200, 'url', 1, 1 );
+insert into product(name, description, price, weight, image_url, product_category_id, supplier_id)
+values ( 'my first product', 'amazing', 1000, 200, 'url', 1, 1 );

@@ -4,6 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
+@Builder
 @Entity
 @Table(name = "Customer")
 @AllArgsConstructor
@@ -14,12 +15,18 @@ import java.util.List;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="ID")
     private Integer id;
+    @Column(name="FIRSTNAME")
     private String firstName;
+    @Column(name="LASTNAME")
     private String lastLame;
+    @Column(name="USERNAME")
     private String username;
+    @Column(name="PASSWORD")
     private String password;
-    private String email_Address;
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Column(name="EMAIL_ADDRESS")
+    private String emailAddress;
+    @OneToMany(mappedBy = "customer")
     private List<PlacedOrder> orders;
 }

@@ -1,11 +1,17 @@
 package ro.msg.learning.shop.model;
 
 import lombok.*;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import java.time.LocalDate;
 import java.util.List;
 
+@Builder
 @Entity
+@Table(name="placed_order")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -15,17 +21,35 @@ public class PlacedOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotNull(message = "Customer's Id is mandatory and must be a number")
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+    @NotNull(message = "Customer's Id is mandatory and must be a number")
     @ManyToOne
-    @JoinColumn(name = "location_id")
-    private Location locationId;
-    private Timestamp created_at;
+    @JoinColumn(name = "shipped_from_id")
+    private Location location;
+
+    //TODO: Checkout auto insert of localDate
+    @PastOrPresent(message = "Time of order is mandatory")
+    private LocalDate created_at;
+
+    @Column(name="ADDRESS_COUNTRY")
+    @NotBlank(message = "Country field is mandatory")
     private String country;
+
+    @Column(name="ADDRESS_CITY")
+    @NotBlank(message = "City field is mandatory")
     private String city;
+
+    @Column(name="ADDRESS_COUNTY")
+    @NotBlank(message = "County field is mandatory")
     private String county;
-    private String streetAdress;
-    @OneToMany(mappedBy = "orderId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+    @Column(name="ADDRESS_STREET")
+    @NotBlank(message = "Street Address field is mandatory")
+    private String addressStreet;
+
+    @OneToMany(mappedBy = "orderId")
     private List<OrderDetail> OrderDetails;
 }
