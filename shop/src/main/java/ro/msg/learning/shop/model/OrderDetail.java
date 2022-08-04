@@ -3,6 +3,7 @@ package ro.msg.learning.shop.model;
 import lombok.*;
 import javax.persistence.*;
 
+@Builder
 @Entity
 @Table(name="order_detail")
 @AllArgsConstructor
@@ -21,4 +22,11 @@ public class OrderDetail {
     @JoinColumn(name = "ORDER_ID")
     private PlacedOrder orderId;
     private Integer quantity;
+
+    public OrderDetail(Product foundProduct, PlacedOrder placeOrder, Integer quantity) {
+        this.product = foundProduct;
+        this.orderId = placeOrder;
+        this.quantity = quantity;
+    }
+
 }

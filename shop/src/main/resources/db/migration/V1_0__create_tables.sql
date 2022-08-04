@@ -81,5 +81,5 @@ insert into product_category(name, description) values ( 'laptop', 'electronics 
 
 insert into supplier(name) values ( 'dell' );
 
-insert into product(name, description, price, weight, image_url, product_category_id, supplier_id)
-values ( 'my first product', 'amazing', 1000, 200, 'url', 1, 1 );
+-- insert into product(name, description, price, weight, image_url, product_category_id, supplier_id)
+-- values ( 'my first product', 'amazing', 1000, 200, 'url', 1, 1 );

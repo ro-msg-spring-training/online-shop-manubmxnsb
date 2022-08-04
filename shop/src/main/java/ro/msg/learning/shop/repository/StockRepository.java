@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface StockRepository extends JpaRepository<Stock, Integer> {
-    List<Stock> getAllByProductId(int productId);
-    List<Stock> getAllByLocationId(int locationId);
+
+    List<Stock> findAllByProductProductId(int productId);
+    List<Stock> findAllByLocationId(int locationId);
 }

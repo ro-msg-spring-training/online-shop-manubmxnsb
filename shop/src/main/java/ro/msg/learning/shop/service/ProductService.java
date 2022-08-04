@@ -52,4 +52,7 @@ public class ProductService {
 
     public void deleteProduct( int id) { productRepository.deleteById(id); }
 
+    public boolean existsById(int id) {
+        return productRepository.existsById(id);
+    }
 }

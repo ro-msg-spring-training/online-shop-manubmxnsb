@@ -52,4 +52,8 @@ public class Product {
 
     @OneToMany(mappedBy = "orderId")
     private List<OrderDetail> OrderDetail;
+
+    public Product(int id) {
+        this.productId = id;
+    }
 }
