@@ -30,4 +30,11 @@ public class Location {
     private List<PlacedOrder> orders;
     @OneToMany(mappedBy = "stockId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Stock> stocks;
+    public Location(String locationName, String country, String city, String county, String street) {
+        this.name = locationName;
+        this.country = country;
+        this.city = city;
+        this.county = county;
+        this.streetAdress = street;
+    }
 }

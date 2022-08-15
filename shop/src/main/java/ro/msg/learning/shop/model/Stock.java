@@ -23,4 +23,10 @@ public class Stock {
     @JoinColumn(name = "LOCATION_ID")
     private Location location;
     private Integer quantity;
+
+    public Stock(Product product1, Location location1, int i) {
+        this.product = product1;
+        this.location = location1;
+        this.stockId = i;
+    }
 }

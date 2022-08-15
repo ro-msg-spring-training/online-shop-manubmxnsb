@@ -6,6 +6,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Builder
@@ -52,6 +53,40 @@ public class Product {
 
     @OneToMany(mappedBy = "orderId")
     private List<OrderDetail> OrderDetail;
+
+    public Product(String name,
+                   String description,
+                   Float price,
+                   Double weight,
+                   ProductCategory productCategory,
+                   Supplier supplier,
+                   String imageUrl) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.weight = weight;
+        this.productCategory = productCategory;
+        this.supplierId = supplier;
+        this.image_url = imageUrl;
+    }
+
+    public Product(int id,
+                   String name,
+                   String description,
+                   Float price,
+                   Double weight,
+                   ProductCategory productCategory,
+                   Supplier supplier,
+                   String imageUrl) {
+        this.productId = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.weight = weight;
+        this.productCategory = productCategory;
+        this.supplierId = supplier;
+        this.image_url = imageUrl;
+    }
 
     public Product(int id) {
         this.productId = id;
